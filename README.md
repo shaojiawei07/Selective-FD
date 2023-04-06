@@ -1,12 +1,12 @@
 # Selective-FD
 
-The official PyTorch implementation of the proposed Selective-FD method in the manuscript ["Selective Knowledge Sharing for Privacy-Preserving Federated Distillation without A Good Teacher"](https://arxiv.org/abs/2304.01731)
+The official PyTorch implementation of the Selective-FD method proposed in the manuscript ["Selective Knowledge Sharing for Privacy-Preserving Federated Distillation without A Good Teacher"](https://arxiv.org/abs/2304.01731)
 
 
 
 ## Introduction
 
-While federated learning is promising for privacy-preserving collaborative learning without revealing local data, it remains vulnerable to white-box attacks and struggles to adapt to heterogeneous clients. Federated distillation (FD), built upon knowledge distillation--an effective technique for transferring knowledge from a teacher model to student models--emerges as an alternative paradigm, which provides enhanced privacy guarantees and addresses model heterogeneity. Nevertheless, challenges arise due to variations in local data distributions and the absence of a well-trained teacher model, which leads to misleading and ambiguous knowledge sharing that significantly degrades model performance. To address these issues, this paper proposes a selective knowledge sharing mechanism for FD, termed Selective-FD. It includes client-side selectors and a server-side selector to accurately and precisely identify knowledge from local and ensemble predictions, respectively. Empirical studies, backed by theoretical insights, demonstrate that our approach enhances the generalization capabilities of the FD framework and consistently outperforms baseline methods. This study presents a promising direction for effective knowledge transfer in privacy-preserving collaborative learning.
+While federated learning is promising for privacy-preserving collaborative learning without revealing local data, it remains vulnerable to white-box attacks and struggles to adapt to heterogeneous clients. Federated distillation (FD), built upon knowledge distillation--an effective technique for transferring knowledge from a teacher model to student models--emerges as an alternative paradigm, which provides enhanced privacy guarantees and addresses model heterogeneity. Nevertheless, challenges arise due to variations in local data distributions and the absence of a well-trained teacher model, which leads to misleading and ambiguous knowledge sharing that significantly degrades model performance. To address these issues, this paper proposes a selective knowledge sharing mechanism for FD, termed Selective-FD. It includes client-side selectors and a server-side selector to accurately and precisely identify knowledge from local and ensemble predictions, respectively. 
 
 ## Overall framework of Selective-FD
 
