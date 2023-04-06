@@ -35,7 +35,7 @@ Each client owns a private local dataset and a personalized model.  To transfer 
 #### Others
 
 
-- The initial run of `python Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`.
+- The initial run of `Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`.
 - Please note that our method has the ability to support heterogeneous local models. But, for the sake of simplicity, we assume that all the clients adopt the same local models in this demo.
 
 
