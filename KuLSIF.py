@@ -10,41 +10,6 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 from torchvision import datasets, transforms
 
-
-# def raw_samples_collection(ratio = 0.2, proxy_dataset = False, client_index = 0):
-
-#     local_training_dataset = MNIST4KuLSIFandFedMD10Clients2Class(proxy_dataset = proxy_dataset, 
-#                                                                  client_index = client_index, 
-#                                                                  dataset_path = "./utils/MNISTDataset.pth")
-#     #print(len(local_training_dataset.dataset))
-
-#     local_training_dataset_list = []
-
-#     for i in range(int(len(local_training_dataset.dataset)*ratio)):
-#         image, label = local_training_dataset.dataset[i]
-#         #print(image.size(),label)
-#         image_vector = torch.reshape(image,(-1,))
-#         #print(image_vector.size())
-#         local_training_dataset_list.append(image_vector.numpy())
-#         #print(local_training_dataset_list)
-
-#     local_training_samples = np.array(local_training_dataset_list)
-#     print("local training dataset size:",local_training_samples.shape)
-
-#     return local_training_samples
-
-
-# def uniform_samples_collection(max_value = 2.82157,
-#                                min_value = -0.4242,
-#                                dim = 784,
-#                                sample_num = 1000):
-
-#     auxiliary_samples = np.random.uniform(low = min_value, high = max_value, size = (sample_num, dim))
-
-#     print("auxiliary dataset:",auxiliary_samples.shape)
-
-#     return auxiliary_samples
-
     
 
 class KuLSIF_density_ratio_estimation:
@@ -87,9 +52,7 @@ class KuLSIF_density_ratio_estimation:
 
         distance_matrix = auxiliary_samples1 - auxiliary_samples2
         distance_matrix = np.linalg.norm(distance_matrix, ord = 2, axis = 2)
-        print(distance_matrix.shape)
         K11 = np.exp(-distance_matrix ** 2 / Gaussian_kernel_width ** 2 / 2)
-        print("K11: max min mean",np.max(K11),np.min(K11),np.mean(K11))
 
         return K11
 
@@ -105,9 +68,7 @@ class KuLSIF_density_ratio_estimation:
 
         distance_matrix = auxiliary_samples - known_samples
         distance_matrix = np.linalg.norm(distance_matrix, ord = 2, axis = 2)
-        print(distance_matrix.shape)
         K12 = np.exp(-distance_matrix ** 2 / Gaussian_kernel_width ** 2 / 2)
-        print("K12: max min mean",np.max(K12),np.min(K12),np.mean(K12))
 
         return K12
 
@@ -120,9 +81,6 @@ class KuLSIF_density_ratio_estimation:
             inverse_LHS_matrix = np.linalg.inv(LHS_matrix)
         except:
             inverse_LHS_matrix = np.linalg.pinv(LHS_matrix)
-            print("pseudo inverse")
-
-        #print(inverse_LHS_matrix,inverse_LHS_matrix.shape,"inverse_LHS_matrix\n")
 
         one_vector = np.ones((self.m,1))
 
@@ -132,7 +90,6 @@ class KuLSIF_density_ratio_estimation:
 
         alpha_vector = np.dot(LHS_matrix,RHS_vector)
 
-        print("alpha_vector max min mean",np.max(alpha_vector),np.min(alpha_vector),np.mean(alpha_vector))
 
         return alpha_vector
 
@@ -186,11 +143,7 @@ class KuLSIF_estimator(KuLSIF_density_ratio_estimation):
         self.known_samples = known_samples
         self.auxiliary_samples = auxiliary_samples
         self.lamda = lamda
-        #self.K11 = self._compute_K11_matrix()
-        #self.K12 = self._compute_K12_matrix()
-        self.alpha_vector = alpha_vector #self._compute_alpha_vector()
-        #self.K11 = None 
-        #self.K12 = None
+        self.alpha_vector = alpha_vector 
 
 
 
@@ -199,56 +152,7 @@ if __name__ == '__main__':
 
     ...
 
-    dict_param = torch.load("MNIST_client0_param.pth")
 
-    esti = KuLSIF_estimator(Gaussian_kernel_width = dict_param["Gaussian_kernel_width"],
-                            known_samples = dict_param["known_samples"],
-                            auxiliary_samples = dict_param["auxiliary_samples"],
-                            lamda = dict_param["lamda"],
-                            alpha_vector = dict_param["alpha_vector"],
-                            )
-
-    print(esti.Gaussian_kernel_width)
-
-
-    if 0:
-
-    # Dataset preparation
-        local_training_samples = raw_samples_collection(ratio = 0.2, proxy_dataset = False, client_index = 0)
-        auxiliary_samples = uniform_samples_collection(sample_num = 2000)
-
-
-        KuLSIF_estimator = KuLSIF_density_ratio_estimation(30,local_training_samples,auxiliary_samples,lamda = 1e-3) # kernel with = 30 is ok
-
-        samples_0 = raw_samples_collection(ratio = 0.3, proxy_dataset = False, client_index = 0)
-        samples_3 = raw_samples_collection(ratio = 0.3, proxy_dataset = False, client_index = 3)
-
-        uniform_samples = uniform_samples_collection()
-
-        print("density:",KuLSIF_estimator.ratio_estimator(samples_0[0:2]),KuLSIF_estimator.ratio_estimator(samples_0[-3:-1]))
-        print("noise density:",KuLSIF_estimator.ratio_estimator(auxiliary_samples[0:3]),KuLSIF_estimator.ratio_estimator(uniform_samples[0:3]))
-        print("density:",KuLSIF_estimator.ratio_estimator(samples_3[1:5]))
-
-
-
-
-    #print("density:",density_estimator.density_estimator(uniform_samples[0]))
-
-
-
-
-
-    # transform=transforms.Compose([
-    #     transforms.ToTensor(),
-    #     transforms.Normalize((0.1307,), (0.3081,))
-    #     ])
-    # test_dataset = datasets.MNIST('./data', train=False, transform=transform, download = True)
-
-    
-
-    # print(dataset.__len__(),dataset.__getitem__(3)[0].size())
-    # print(torch.max(dataset.__getitem__(3)[0]),torch.min(dataset.__getitem__(3)[0]))
-    # print(dataset.__getitem__(3)[1],dataset.__getitem__(5000)[1])
 
 
 
