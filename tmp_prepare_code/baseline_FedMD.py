@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
-from data.MNISTTrainDataset import *
+from utils.MNISTTrainDataset import *
 import copy
 import numpy as np
 import datetime
@@ -189,7 +189,7 @@ def main():
                        transform=transform)
     test_loader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
 
-    global_dataset = MNISTProxyDataset(dataset_path = "./data/MNISTTrainDataset.pth") 
+    global_dataset = MNISTProxyDataset(dataset_path = "./utils/MNISTwithProxyDataset.pth") 
     #MNIST4FedMD10Clients(proxy_dataset = True, dataset_path = "./utils/MNISTwithProxyDataset.pth")
 
     FL_training_dataset_list = {}
@@ -198,7 +198,7 @@ def main():
     FL_sceduler_list = {}
     for i in range(10):
 
-        train_dataset = MNISTLocalDataset(client_index = i, dataset_path = "./data/MNISTTrainDataset.pth")
+        train_dataset = MNISTLocalDataset(client_index = i, dataset_path = "./utils/MNISTwithProxyDataset.pth")
         FL_training_dataset_list[i] = train_dataset
         FL_local_model_list[i] = Net().to(device)
         FL_optimizer_list[i] = optim.SGD(FL_local_model_list[i].parameters(), lr=args.lr)
@@ -241,11 +241,12 @@ def main():
                                        scheduler = FL_sceduler_list[i], 
                                        local_step = args.local_step * 10)
 
-        if epoch % 5 == 0:
+        if epoch % 50 == 0:
             print("epoch",epoch)
             accuracy_list = []
             for j in range(10):
                 accuracy_list.append(test(FL_local_model_list[j], device, test_loader))
+            #accuracy = test(FL_local_model_list[0], device, test_loader)
             accuracy = np.mean(accuracy_list) #torch.mean(torch.cat(accuracy_list))
             print("accuracy",accuracy,"accuracy_list", accuracy_list)
             if accuracy > acc_max:
