@@ -197,7 +197,7 @@ def main():
                         optimizer = FL_optimizer_list[i], 
                         scheduler = FL_sceduler_list[i], 
                         local_step = 1)
-        mini_batch_data, mini_batch_softlabel = generate_softlabel(args, FL_local_model_list, device, global_dataset, batch_size = int(0.1 * global_dataset.__len__()))
+        mini_batch_data, mini_batch_softlabel = generate_softlabel(args, FL_local_model_list, device, global_dataset, batch_size = 512)
 
         for i in range(10):
             local_train_global_dataset(args, 
