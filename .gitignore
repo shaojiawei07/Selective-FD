@@ -1,2 +1,3 @@
 
 data/MNISTTrainDataset.pth
+data/MNIST/raw/*
