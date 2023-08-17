@@ -32,7 +32,7 @@ This project requires only a standard computer with enough memory and computatio
 - numpy
 - torch, torchvision
 
-Installing these packages using `pip` takes less than 30 seconds.
+Installing these packages by `pip` takes less than 30 seconds.
 
 
 ### (2023-Apr-06) We provide a demo to evaluate Selective-FD on the MNIST dataset.
