@@ -15,8 +15,28 @@ While federated learning is promising for privacy-preserving collaborative learn
 Each client owns a private local dataset and a personalized model.  To transfer knowledge in each communication round, the clients upload the local predictions of proxy samples to the server for aggregation, and the ensemble predictions are sent back to clients for knowledge distillation. The client-side selectors and the server-side selector are responsible for filtering out misleading and ambiguous knowledge from the clients' predictions.
 
 
+## Requirements
+
+### OS requirements
+
+This project is tested on Windows, MacOS, and Ubuntu.
+
+
+### Hardware requirements
+
+This project requires only a standard computer with enough memory and computational resources to complete the model training.
+
+
+### Python dependencies
+
+- numpy
+- torch, torchvision
+
+Installing these packages using `pip` takes less than 30 seconds.
+
 
 ### (2023-Apr-06) We provide a demo to evaluate Selective-FD on the MNIST dataset.
+
 
 
 #### Setup
@@ -35,7 +55,7 @@ Each client owns a private local dataset and a personalized model.  To transfer 
 #### Others
 
 
-- The initial run of `Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`.
+- The initial run of `Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`. It takes around 2 minutes in our server.
 - Please note that our method has the ability to support heterogeneous local models. But, for the sake of simplicity, we assume that all the clients adopt the same local models in this demo.
 
 
