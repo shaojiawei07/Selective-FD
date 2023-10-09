@@ -58,7 +58,7 @@ Installing these packages by `pip` takes less than 30 seconds.
 - The initial run of `Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`. It takes around 2 minutes in our server.
 - Please note that our method has the ability to support heterogeneous local models. But, for the sake of simplicity, all the clients adopt the same local models in this demo.
 
-- It is easy to extend the provided demo to other classification tasks. However, the performance of our method is highly dependent on the quality of the density-ratio estimator in the client-side selector. If the number of training samples is small or the input data reside in a high-dimensional space, it is possible that the density-ratio estimator may fail to identify the out-of-distribution samples, leading to performance degradation in knowledge distillation.  One recommended solution is as follows:
+- The code can be adapted for other classification tasks. However, the performance of our method is highly dependent on the quality of the density-ratio estimator in the client-side selector. If the number of training samples is small or the input data reside in a high-dimensional space, it is possible that the density-ratio estimator may fail to identify the out-of-distribution samples, leading to performance degradation in knowledge distillation.  One recommended solution is as follows:
 	- First, use a pretrained model to extract low-dimensional features from the input data.
 	- Second, estimate the density ratio in the feature space.
 
