@@ -62,7 +62,7 @@ Installing these packages by `pip` takes less than 30 seconds.
 	- First, use a pretrained model to extract low-dimensional features from the input data.
 	- Second, estimate the density ratio in the feature space.
 
-	For example, on the CIFAR-10 dataset, it is recommended to use a ResNet model pretrained on the ImageNet dataset to extract the features.
+	Take CIFAR-10 as an example. It is recommended to use a ResNet model pretrained on the ImageNet dataset to extract the features.
 
 
 ## Citation
