@@ -35,7 +35,7 @@ This project requires only a standard computer with enough memory and computatio
 Installing these packages by `pip` takes less than 30 seconds.
 
 
-## (2023-Apr-06) We provide a demo to evaluate Selective-FD on the MNIST dataset.
+## We provide a demo to evaluate Selective-FD on the MNIST dataset.
 
 
 
@@ -56,7 +56,13 @@ Installing these packages by `pip` takes less than 30 seconds.
 
 
 - The initial run of `Selective-FD.py` could be time-consuming as it needs to construct a dataset `./data/MNISTSelectedProxyDataset.pth`. It takes around 2 minutes in our server.
-- Please note that our method has the ability to support heterogeneous local models. But, for the sake of simplicity, we assume that all the clients adopt the same local models in this demo.
+- Please note that our method has the ability to support heterogeneous local models. But, for the sake of simplicity, all the clients adopt the same local models in this demo.
+
+- It is easy to extend the provided demo to other classification tasks. However, the performance of our method is highly dependent on the quality of the density-ratio estimator in the client-side selector. If the number of training samples is small or the input data reside in a high-dimensional space, it is possible that the density-ratio estimator may fail to identify the out-of-distribution samples, leading to performance degradation in knowledge distillation.  One recommended solution is as follows:
+	- First, use a pretrained model to extract low-dimensional features from the input data.
+	- Second, estimate the density ratio in the feature space.
+
+	For example, on the CIFAR-10 dataset, it is recommended to use a ResNet model pretrained on the ImageNet dataset to extract the features.
 
 
 ## Citation
